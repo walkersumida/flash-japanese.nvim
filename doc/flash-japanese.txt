@@ -1,0 +1,103 @@
+*flash-japanese.txt*    Jump to Japanese text with romaji input
+
+==============================================================================
+CONTENTS                                            *flash-japanese-contents*
+
+    1. Introduction ............................ |flash-japanese-introduction|
+    2. Requirements ............................ |flash-japanese-requirements|
+    3. Installation ............................ |flash-japanese-installation|
+    4. Configuration ........................... |flash-japanese-configuration|
+    5. Usage ................................... |flash-japanese-usage|
+    6. API ..................................... |flash-japanese-api|
+    7. License ................................. |flash-japanese-license|
+
+==============================================================================
+1. INTRODUCTION                                 *flash-japanese-introduction*
+
+flash-japanese.nvim enables jumping to Japanese text (hiragana, katakana,
+kanji) by typing romaji input. It integrates with flash.nvim to provide
+fast navigation.
+
+==============================================================================
+2. REQUIREMENTS                                 *flash-japanese-requirements*
+
+- Neovim 0.8+
+- flash.nvim (https://github.com/folke/flash.nvim)
+
+==============================================================================
+3. INSTALLATION                                 *flash-japanese-installation*
+
+Using lazy.nvim: >lua
+    {
+      "walkersumida/flash-japanese.nvim",
+      dependencies = { "folke/flash.nvim" },
+      opts = {},
+    }
+<
+
+==============================================================================
+4. CONFIGURATION                               *flash-japanese-configuration*
+
+Default configuration: >lua
+    require("flash-japanese").setup({
+      keys = {
+        jump = "sj",  -- Set to false to disable
+      },
+      -- Include raw romaji input as literal match (English text)
+      include_raw_input = false,
+      -- Cooldown period (ms) after jump to ignore accidental keystrokes
+      cooldown_ms = 1000,
+      -- Debug mode (logs search patterns)
+      debug = false,
+      -- Options passed to flash.nvim
+      flash_opts = {},
+    })
+<
+
+                                              *flash-japanese-include-raw-input*
+include_raw_input ~
+    When `true`, the raw romaji input is also matched as literal text.
+    This allows matching English text alongside Japanese text in a
+    single jump session. Default: `false`.
+
+                                              *flash-japanese-cooldown*
+cooldown_ms ~
+    Cooldown period in milliseconds applied when flash exits without
+    jumping (e.g., no matches found). During this period, all
+    keystrokes are ignored to prevent accidental actions (e.g.,
+    entering insert mode with `i` while still typing romaji).
+    Not applied when a jump is successfully completed.
+    Set to `0` to disable. Default: `1000`.
+
+==============================================================================
+5. USAGE                                               *flash-japanese-usage*
+
+1. Press `sj` (default keymap)
+2. Type romaji (e.g., `ten`)
+3. Labels appear on matching Japanese text
+4. Press the label key to jump
+
+Romaji examples:
+- `ten` → 天, 点, 店, てん, テン
+- `kyou` → 今日, 京, 強, きょう, キョウ
+- `ji` → 時間, 自由, じ
+- `kka` → っか (doubled consonant)
+
+==============================================================================
+6. API                                                   *flash-japanese-api*
+
+                                                    *flash-japanese.setup()*
+setup({opts})
+    Setup the plugin with the given options.
+
+                                                     *flash-japanese.jump()*
+jump({opts})
+    Start Japanese jump mode. Options are passed to flash.nvim.
+
+==============================================================================
+7. LICENSE                                           *flash-japanese-license*
+
+GPL-2.0. See LICENSE file for details.
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:
