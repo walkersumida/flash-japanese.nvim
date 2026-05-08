@@ -26,6 +26,7 @@ Jump to Japanese text with romaji input using [flash.nvim](https://github.com/fo
 ```lua
 {
   "walkersumida/flash-japanese.nvim",
+  version = "*",
   dependencies = { "folke/flash.nvim" },
   opts = {},
 }
@@ -60,6 +61,7 @@ use {
 -- Using lazy.nvim
 {
   "walkersumida/flash-japanese.nvim",
+  version = "*",
   dependencies = { "folke/flash.nvim" },
   opts = {
     -- Key mappings
@@ -88,6 +90,7 @@ use {
 -- Using lazy.nvim
 {
   "walkersumida/flash-japanese.nvim",
+  version = "*",
   dependencies = { "folke/flash.nvim" },
   opts = {
     keys = {
