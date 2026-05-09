@@ -4,6 +4,8 @@
 
 [flash.nvim](https://github.com/folke/flash.nvim) を使って、ローマ字入力で日本語テキストにジャンプする Neovim プラグインです。
 
+https://github.com/user-attachments/assets/64ff36b6-504a-4a54-9506-f89ac2c2ee80
+
 ## 特徴
 
 - ローマ字入力でひらがな・カタカナ・漢字にジャンプ

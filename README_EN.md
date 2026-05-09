@@ -4,6 +4,8 @@
 
 Jump to Japanese text with romaji input using [flash.nvim](https://github.com/folke/flash.nvim).
 
+https://github.com/user-attachments/assets/64ff36b6-504a-4a54-9506-f89ac2c2ee80
+
 ## Features
 
 - Jump to hiragana, katakana, and kanji by typing romaji
