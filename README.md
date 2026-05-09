@@ -1,27 +1,31 @@
+**日本語** | [English](README_EN.md)
+
 # flash-japanese.nvim
 
-Jump to Japanese text with romaji input using [flash.nvim](https://github.com/folke/flash.nvim).
+[flash.nvim](https://github.com/folke/flash.nvim) を使って、ローマ字入力で日本語テキストにジャンプする Neovim プラグインです。
 
-## Features
+https://github.com/user-attachments/assets/64ff36b6-504a-4a54-9506-f89ac2c2ee80
 
-- Jump to hiragana, katakana, and kanji by typing romaji
-- Powered by SKK dictionary (130,000+ entries)
-- Seamless integration with flash.nvim
+## 特徴
 
-## Why flash-japanese?
+- ローマ字入力でひらがな・カタカナ・漢字にジャンプ
+- SKK 辞書（130,000 以上のエントリ）を活用
+- flash.nvim とのシームレスな統合
 
-- **No external dependencies** — Unlike Migemo-based plugins that require C binaries or Deno, flash-japanese works out of the box with just your plugin manager
-- **Built on flash.nvim** — A thin wrapper around flash.nvim, keeping the codebase small and stable. All flash.nvim features (labels, multi-window, operator-pending mode) work as-is
-- **Fast buffer-scoped matching** — Only matches kanji visible on screen, resulting in fewer regex candidates, faster search, and fewer keystrokes to jump
+## なぜ flash-japanese？
 
-## Requirements
+- **外部依存なし** — C バイナリや Deno が必要な Migemo 系プラグインと違い、プラグインマネージャだけですぐに使えます
+- **flash.nvim ベース** — flash.nvim の薄いラッパーとして動作し、コードベースは小さく安定しています。flash.nvim の機能（ラベル、マルチウィンドウ、オペレーター待機モード）はそのまま使えます
+- **高速なバッファスコープマッチング** — 画面に表示されている漢字のみをマッチ対象にするため、正規表現の候補が少なく、検索が高速で、ジャンプまでのキーストロークも少なくなります
 
-- Neovim 0.8+
+## 要件
+
+- Neovim 0.8 以上
 - [flash.nvim](https://github.com/folke/flash.nvim)
 
-## Installation
+## インストール
 
-### Using [lazy.nvim](https://github.com/folke/lazy.nvim)
+### [lazy.nvim](https://github.com/folke/lazy.nvim) の場合
 
 ```lua
 {
@@ -32,7 +36,7 @@ Jump to Japanese text with romaji input using [flash.nvim](https://github.com/fo
 }
 ```
 
-### Using [packer.nvim](https://github.com/wbthomason/packer.nvim)
+### [packer.nvim](https://github.com/wbthomason/packer.nvim) の場合
 
 ```lua
 use {
@@ -44,63 +48,63 @@ use {
 }
 ```
 
-> **Note:** Configuration examples below use lazy.nvim's `opts` syntax. For packer.nvim, pass the same options to `setup()`.
+> **注意:** 以下の設定例は lazy.nvim の `opts` 構文を使用しています。packer.nvim の場合は同じオプションを `setup()` に渡してください。
 
-## Usage
+## 使い方
 
-1. Press `sj` (default keymap)
-2. Type romaji (e.g., `ten`)
-3. Labels appear on matching Japanese text (天, 点, 店, てん, テン, etc.)
-4. Press the label key to jump
+1. `sj` を押す（デフォルトのキーマップ）
+2. ローマ字を入力する（例：`ten`）
+3. マッチする日本語テキスト（天、点、店、てん、テン など）にラベルが表示される
+4. ラベルキーを押してジャンプ
 
-## Configuration
+## 設定
 
-### Default Configuration
+### デフォルト設定
 
 ```lua
--- Using lazy.nvim
+-- lazy.nvim の場合
 {
   "walkersumida/flash-japanese.nvim",
   version = "*",
   dependencies = { "folke/flash.nvim" },
   opts = {
-    -- Key mappings
+    -- キーマッピング
     keys = {
-      jump = "sj",  -- Set to false to disable default keymap
+      jump = "sj",  -- false に設定するとデフォルトキーマップを無効化
     },
 
-    -- Include raw romaji input as literal match (matches English text too)
+    -- ローマ字入力をそのままリテラルマッチに含める（英語テキストにもマッチ）
     include_raw_input = false,
 
-    -- Cooldown period (ms) after jump to ignore accidental keystrokes (0 to disable)
+    -- ジャンプ後の誤入力防止のクールダウン期間（ミリ秒、0 で無効化）
     cooldown_ms = 1000,
 
-    -- Debug mode (logs search patterns)
+    -- デバッグモード（検索パターンをログ出力）
     debug = false,
 
-    -- Options passed to flash.nvim
+    -- flash.nvim に渡すオプション
     flash_opts = {},
   },
 }
 ```
 
-### Custom Keymap
+### カスタムキーマップ
 
 ```lua
--- Using lazy.nvim
+-- lazy.nvim の場合
 {
   "walkersumida/flash-japanese.nvim",
   version = "*",
   dependencies = { "folke/flash.nvim" },
   opts = {
     keys = {
-      jump = false,  -- Disable default keymap
+      jump = false,  -- デフォルトキーマップを無効化
     },
   },
 }
 ```
 
-Then set your own keymap:
+独自のキーマップを設定:
 
 ```lua
 vim.keymap.set({ "n", "x", "o" }, "<leader>j", function()
@@ -108,48 +112,46 @@ vim.keymap.set({ "n", "x", "o" }, "<leader>j", function()
 end, { desc = "Flash Japanese" })
 ```
 
-## Romaji Conversion
+## ローマ字変換
 
-The plugin supports standard romaji input:
+標準的なローマ字入力に対応しています:
 
-| Romaji | Hiragana |
+| ローマ字 | ひらがな |
 |--------|----------|
 | a, i, u, e, o | あ, い, う, え, お |
 | ka, ki, ku, ke, ko | か, き, く, け, こ |
 | sha, shi, shu, she, sho | しゃ, し, しゅ, しぇ, しょ |
 | kya, kyu, kyo | きゃ, きゅ, きょ |
 | nn | ん |
-| kk (doubled consonant) | っk |
+| kk（二重子音） | っk |
 
-## How It Works
+## 仕組み
 
-1. Romaji input is converted to hiragana
-2. Hiragana is converted to katakana
-3. Kanji visible in the current buffer are scanned
-4. SKK dictionary prefix lookup finds matching kanji (filtered to visible buffer)
-5. All matches (kana + kanji) are combined into a Vim regex pattern
-6. flash.nvim highlights all matches
+1. ローマ字入力をひらがなに変換し、さらにカタカナにも変換して両方を検索候補にする
+2. 現在のバッファに表示されている漢字をスキャンし、SKK 辞書の前方一致検索でマッチする漢字を検索候補に追加
+3. すべての候補（ひらがな・カタカナ・漢字）を Vim の正規表現パターンに結合
+4. flash.nvim がすべてのマッチをハイライト
 
-## Development
+## 開発
 
-### Regenerating the dictionary
+### 辞書の再生成
 
-The plugin ships with a prebuilt `dict.json`. To regenerate it from the latest SKK dictionary:
+プラグインにはビルド済みの `dict.json` が同梱されています。最新の SKK 辞書から再生成するには:
 
 ```bash
-# Download SKK-JISYO.L
+# SKK-JISYO.L をダウンロード
 curl -sL "https://raw.githubusercontent.com/skk-dev/dict/master/SKK-JISYO.L" -o /tmp/SKK-JISYO.L
 
-# Regenerate dict.json (requires Go)
+# dict.json を再生成（Go が必要）
 cd scripts
 go run convert_skk_dict.go /tmp/SKK-JISYO.L ../lua/flash-japanese/dict.json
 ```
 
-## License
+## ライセンス
 
 GPL-2.0
 
-## Credits
+## クレジット
 
 - [flash.nvim](https://github.com/folke/flash.nvim) by folke
-- [SKK Dictionary](https://skk-dev.github.io/dict/) for kanji mappings
+- [SKK Dictionary](https://skk-dev.github.io/dict/) — 漢字マッピング
